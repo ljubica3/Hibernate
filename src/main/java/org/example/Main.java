@@ -4,12 +4,9 @@ import org.example.domen.Address;
 import org.example.domen.Bid;
 import org.example.domen.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class Main {
 
@@ -20,21 +17,19 @@ public class Main {
         System.out.println("============== START ===============");
 
         User user = new User();
-        user.setIdentity("123");
-        user.setFirst_name("Ljubica");
-        user.setLast_name("Vlahovic");
+        user.setId(123L);
+        user.setFirstName("Ljubica");
+        user.setLastName("Vlahovic");
 
         Address address = new Address();
         address.setStreet("Main St.");
-        address.setZip_code("10000");
+        address.setZipcode("10000");
         address.setCity("Cityville");
 
-        user.setAddress(address);
+        user.setHomeAddress(address);
 
         Bid bid = new Bid();
         bid.setAmount(100.50);
-        bid.setCreated_on(LocalDate.from(LocalDateTime.now()));
-        bid.setUser(user);
 
         em.getTransaction().begin();
 

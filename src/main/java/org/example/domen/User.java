@@ -1,29 +1,37 @@
 package org.example.domen;
 
-import javax.persistence.*;
-import java.util.List;
+import jakarta.persistence.*;
 
 @Entity
-
-public class User{
+@Table(name = "Korisnik")
+public class User {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    private String identity;
-    private String first_name;
-    private String last_name;
-
-    @OneToMany(mappedBy = "user")
-    private List<Bid> bids;
+    private String username;
+    private String firstName;
+    private String lastName;
 
     @Embedded
-    private Address address;
+    @AttributeOverrides({
+            @AttributeOverride(name="street", column=@Column(name="home_street")),
+            @AttributeOverride(name="city", column=@Column(name="home_city")),
+            @AttributeOverride(name="zipcode", column = @Column(name="home_zipcode"))
+    })
+    private Address homeAddress;
 
-    public User() {
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="street", column = @Column(name="shipping_street")),
+            @AttributeOverride(name = "city", column = @Column(name = "shipping_city")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "shipping_zip"))
+    })
+    private Address shippingAddress;
 
-    }
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private CreditCard creditCard;
 
     public Long getId() {
         return id;
@@ -33,64 +41,51 @@ public class User{
         this.id = id;
     }
 
-    public String getIdentity() {
-        return identity;
+    public String getUsername() {
+        return username;
     }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public Address getShippingAddress() {
+        return shippingAddress;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
-    public List<Bid> getBids() {
-        return bids;
+    public CreditCard getCreditCard() {
+        return creditCard;
     }
 
-    public void setBids(List<Bid> bids) {
-        this.bids = bids;
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
 
-    public Address getAddress() {
-        return address;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public User(Long id, String identity, String first_name, String last_name, List<Bid> bids, Address adress) {
-        this.id = id;
-        this.identity = identity;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.bids = bids;
-        this.address = adress;
+    public String getLastName() {
+        return lastName;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", identity='" + identity + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", bids=" + bids +
-                ", adress=" + address +
-                '}';
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

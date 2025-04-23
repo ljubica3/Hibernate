@@ -1,23 +1,22 @@
 package org.example.domen;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-
+import jakarta.persistence.*;
 
 @Entity
 public class Bid {
 
     @Id
-    @GeneratedValue (strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    private Double amount;
-    private LocalDate created_on;
+    private double amount;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    private Item item;
 
-    private User user;
+    @ManyToOne
+    private User bidder;
+
 
     public Long getId() {
         return id;
@@ -27,37 +26,27 @@ public class Bid {
         this.id = id;
     }
 
-    public Double getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public LocalDate getCreated_on() {
-        return created_on;
+    public Item getItem() {
+        return item;
     }
 
-    public void setCreated_on(LocalDate created_on) {
-        this.created_on = created_on;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
-    public User getUser() {
-        return user;
+    public User getBidder() {
+        return bidder;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Bid{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", created_on=" + created_on +
-                ", user=" + user +
-                '}';
+    public void setBidder(User bidder) {
+        this.bidder = bidder;
     }
 }
