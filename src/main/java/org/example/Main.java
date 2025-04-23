@@ -17,6 +17,8 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("your-pu-name");
         EntityManager em = emf.createEntityManager();
 
+        System.out.println("============== START ===============");
+
         User user = new User();
         user.setIdentity("123");
         user.setFirst_name("Ljubica");
@@ -42,7 +44,7 @@ public class Main {
         em.getTransaction().commit();
 
         User fetchedUser = em.find(User.class, user.getId());
-        System.out.println(fetchedUser);
+        System.out.println("FETCHED USER! " + fetchedUser);
 
         em.close();
         emf.close();
