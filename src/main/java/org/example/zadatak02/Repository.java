@@ -1,9 +1,9 @@
-package zadatak02;
+package org.example.zadatak02;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class repository {
+public class Repository {
 
 
     public static class UserRepository {

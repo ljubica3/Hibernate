@@ -1,10 +1,15 @@
-package zadatak02;
+package org.example.zadatak02;
 
 public class User {
 
     private Integer id;
     private String first_name;
     private String last_name;
+
+    //snake_case
+    //kebab-case
+    //camelCase - Java
+    //PascalCase - Java
 
     public User(Integer id, String first_name, String last_name) {
         this.id = id;
