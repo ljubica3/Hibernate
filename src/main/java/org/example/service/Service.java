@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class Service {
 
-    public void save(){
+    public void saveItem(){
         Session session=HibernateUtil.getSessionFactory().openSession();
         Transaction trans=session.beginTransaction();
 
@@ -18,6 +18,9 @@ public class Service {
 
         Category c2 = new Category();
         c2.setName("kategorija b");
+
+        session.persist(c1);
+        session.persist(c2);
 
         for (int i = 1; i <= 3; i++) {
             Item item = new Item();
@@ -33,9 +36,9 @@ public class Service {
 
             c1.getItems().add(item);
             c2.getItems().add(item);
-        }
 
-        session.persist(c1);
+            session.persist(item);
+        }
 
         trans.commit();
         session.close();

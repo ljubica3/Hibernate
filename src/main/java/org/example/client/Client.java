@@ -6,9 +6,9 @@ public class Client {
     public static void main(String[] args) {
         Service service=new Service();
 
-        service.save();
+        service.saveItem();
 
-        Long userId=service.createUserWithAddresses();
+        Long userId = service.createUserWithAddresses();
 
         service.addCreditCard(userId);
 

@@ -15,13 +15,13 @@
         <property name="hibernate.id.new_generator_mappings">true</property>
 
 
-        <mapping class="zadatak04.Category"/>
-        <mapping class="zadatak04.Item"/>
-        <mapping class="zadatak04.Image"/>
-        <mapping class="zadatak04.Bid"/>
-        <mapping class="zadatak04.Address"/>
-        <mapping class="zadatak04.User"/>
-        <mapping class="zadatak04.CreditCard"/>
+        <mapping class="org.example.domen.Category"/>
+        <mapping class="org.example.domen.Item"/>
+        <mapping class="org.example.domen.Image"/>
+        <mapping class="org.example.domen.Bid"/>
+        <mapping class="org.example.domen.Address"/>
+        <mapping class="org.example.domen.User"/>
+        <mapping class="org.example.domen.CreditCard"/>
 
     </session-factory>
 
