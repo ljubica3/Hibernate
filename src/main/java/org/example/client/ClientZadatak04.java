@@ -1,10 +1,10 @@
 package org.example.client;
 
-import org.example.service.Service;
+import org.example.service.ServiceZadatak04;
 
-public class Client {
+public class ClientZadatak04 {
     public static void main(String[] args) {
-        Service service=new Service();
+        ServiceZadatak04 service = new ServiceZadatak04();
 
         service.saveItem();
 

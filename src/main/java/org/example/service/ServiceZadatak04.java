@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 import java.util.Arrays;
 
-public class Service {
+public class ServiceZadatak04 {
 
     public void saveItem(){
         Session session=HibernateUtil.getSessionFactory().openSession();
