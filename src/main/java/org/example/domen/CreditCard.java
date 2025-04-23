@@ -7,14 +7,14 @@ public class CreditCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String number;
-    private String expiry;
+    private String expMonth;
+    private String expYear;
 
     @OneToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    @JoinColumn(name = "user_id")
+    private BillingDetails billingDetails ;
 
     public Long getId() {
         return id;
@@ -32,19 +32,27 @@ public class CreditCard {
         this.number = number;
     }
 
-    public String getExpiry() {
-        return expiry;
+    public String getExpMonth() {
+        return expMonth;
     }
 
-    public void setExpiry(String expiry) {
-        this.expiry = expiry;
+    public void setExpMonth(String expMonth) {
+        this.expMonth = expMonth;
     }
 
-    public User getUser() {
-        return user;
+    public String getExpYear() {
+        return expYear;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setExpYear(String expYear) {
+        this.expYear = expYear;
+    }
+
+    public BillingDetails getBillingDetails() {
+        return billingDetails;
+    }
+
+    public void setBillingDetails(BillingDetails billingDetails) {
+        this.billingDetails = billingDetails;
     }
 }

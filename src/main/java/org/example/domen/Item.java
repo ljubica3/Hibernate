@@ -7,12 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long Id;
     private String name;
 

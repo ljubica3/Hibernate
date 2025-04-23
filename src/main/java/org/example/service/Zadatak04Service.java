@@ -55,9 +55,9 @@ public class Zadatak04Service {
         bid.setAmount(100.0);
         bid.setBidder(bidder);
 
-        item.addBid(bid); // Bid se dodaje preko inverse strane
+        item.addBid(bid);
 
-        session.merge(item); // Pošto menjamo inverse stranu
+        session.merge(item);
 
         tx.commit();
         session.close();
@@ -89,13 +89,13 @@ public class Zadatak04Service {
         user.setUsername("kupac456");
 
         Address home = new Address();
-        home.setStreet("Ulica 1");
-        home.setCity("Grad");
+        home.setStreet("ulica 1");
+        home.setCity("grad");
         home.setZipcode("11000");
 
         Address shipping = new Address();
-        shipping.setStreet("Ulica 2");
-        shipping.setCity("Grad");
+        shipping.setStreet("ulica 2");
+        shipping.setCity("grad");
         shipping.setZipcode("11100");
 
         user.setHomeAddress(home);
@@ -106,7 +106,7 @@ public class Zadatak04Service {
         tx.commit();
         session.close();
 
-        return user.getId(); // Potrebno za povezivanje sa kredit karticom
+        return user.getId();
     }
 
     public void addCreditCard(Long userId) {
@@ -117,8 +117,7 @@ public class Zadatak04Service {
 
         CreditCard cc = new CreditCard();
         cc.setNumber("1234-5678-9012-3456");
-        cc.setExpiry("12/30");
-        cc.setUser(user);
+        cc.setExpMonth("12");
 
         user.setCreditCard(cc);
 

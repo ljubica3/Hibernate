@@ -8,7 +8,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String username;
     private String firstName;
@@ -29,6 +28,17 @@ public class User {
             @AttributeOverride(name = "zipCode", column = @Column(name = "shipping_zip"))
     })
     private Address shippingAddress;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="street", column = @Column(name="billing_street")),
+            @AttributeOverride(name = "city", column = @Column(name = "billing_city")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "billing_zip"))
+    })
+    private Address billingAddress;
+
+
+    //TODO billing details
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private CreditCard creditCard;
@@ -87,5 +97,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Address getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
     }
 }
