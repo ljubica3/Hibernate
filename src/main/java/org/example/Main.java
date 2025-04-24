@@ -1,12 +1,12 @@
 package org.example;
 
-import org.example.domen.Address;
-import org.example.domen.Bid;
-import org.example.domen.User;
+import org.example.domen.*;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
+import java.util.List;
 
 public class Main {
 
@@ -43,5 +43,14 @@ public class Main {
 
         em.close();
         emf.close();
+    }
+
+    void asdf(){
+        Item item = new Item();
+        Image image = new Image();
+
+        item.setImages(List.of(image));
+
+        item.getImages().get(0);
     }
 }

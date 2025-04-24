@@ -10,7 +10,6 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-
     private Long Id;
     private String name;
 
@@ -18,7 +17,7 @@ public class Category {
     private Set<Item> items=new HashSet<>();
 
     @ManyToOne
-    private Category partner;
+    private Category parent;
 
     public Long getId() {
         return Id;
@@ -45,10 +44,10 @@ public class Category {
     }
 
     public Category getPartner() {
-        return partner;
+        return parent;
     }
 
     public void setPartner(Category partner) {
-        this.partner = partner;
+        this.parent = parent;
     }
 }
