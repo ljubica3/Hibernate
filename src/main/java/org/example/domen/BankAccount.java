@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 
 
 @Entity
-public class BankAccount {
+public class BankAccount extends BillingDetails{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String account;
     private String bankname;
     private String swift;

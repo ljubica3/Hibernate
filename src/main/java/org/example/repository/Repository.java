@@ -1,4 +1,6 @@
-package org.example.domen;
+package org.example.repository;
+
+import org.example.domen.User;
 
 import java.util.HashMap;
 import java.util.Map;

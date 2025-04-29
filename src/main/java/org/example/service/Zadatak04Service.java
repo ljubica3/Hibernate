@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Zadatak04Service {
 
@@ -119,7 +120,7 @@ public class Zadatak04Service {
         cc.setNumber("1234-5678-9012-3456");
         cc.setExpMonth("12");
 
-        user.setCreditCard(cc);
+        user.setBillingDetails(List.of(cc));
 
         session.merge(user);
 

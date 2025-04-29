@@ -2,6 +2,9 @@ package org.example.domen;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+import java.util.Objects;
+
 @Entity
 @Table(name = "Korisnik")
 public class User {
@@ -17,7 +20,7 @@ public class User {
     @AttributeOverrides({
             @AttributeOverride(name="street", column=@Column(name="home_street")),
             @AttributeOverride(name="city", column=@Column(name="home_city")),
-            @AttributeOverride(name="zipcode", column = @Column(name="home_zipcode"))
+            @AttributeOverride(name="zipcode", column = @Column(name="home_zip"))
     })
     private Address homeAddress;
 
@@ -25,7 +28,7 @@ public class User {
     @AttributeOverrides({
             @AttributeOverride(name="street", column = @Column(name="shipping_street")),
             @AttributeOverride(name = "city", column = @Column(name = "shipping_city")),
-            @AttributeOverride(name = "zipCode", column = @Column(name = "shipping_zip"))
+            @AttributeOverride(name = "zipcode", column = @Column(name = "shipping_zip"))
     })
     private Address shippingAddress;
 
@@ -33,15 +36,12 @@ public class User {
     @AttributeOverrides({
             @AttributeOverride(name="street", column = @Column(name="billing_street")),
             @AttributeOverride(name = "city", column = @Column(name = "billing_city")),
-            @AttributeOverride(name = "zipCode", column = @Column(name = "billing_zip"))
+            @AttributeOverride(name = "zipcode", column = @Column(name = "billing_zip"))
     })
     private Address billingAddress;
 
-
-    //TODO billing details
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private CreditCard creditCard;
+    @OneToMany(mappedBy = "ownerUser")
+    private List<BillingDetails> billingDetails;
 
     public Long getId() {
         return id;
@@ -75,14 +75,6 @@ public class User {
         this.shippingAddress = shippingAddress;
     }
 
-    public CreditCard getCreditCard() {
-        return creditCard;
-    }
-
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -105,5 +97,25 @@ public class User {
 
     public void setBillingAddress(Address billingAddress) {
         this.billingAddress = billingAddress;
+    }
+
+    public List<BillingDetails> getBillingDetails() {
+        return billingDetails;
+    }
+
+    public void setBillingDetails(List<BillingDetails> billingDetails) {
+        this.billingDetails = billingDetails;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(homeAddress, user.homeAddress) && Objects.equals(shippingAddress, user.shippingAddress) && Objects.equals(billingAddress, user.billingAddress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, firstName, lastName, homeAddress, shippingAddress, billingAddress);
     }
 }

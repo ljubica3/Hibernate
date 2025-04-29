@@ -3,11 +3,8 @@ package org.example.domen;
 import jakarta.persistence.*;
 
 @Entity
-public class CreditCard {
+public class CreditCard extends BillingDetails{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String number;
     private String expMonth;
     private String expYear;
@@ -15,14 +12,6 @@ public class CreditCard {
     @OneToOne
     @JoinColumn(name = "user_id")
     private BillingDetails billingDetails ;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNumber() {
         return number;
