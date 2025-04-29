@@ -9,7 +9,7 @@ public class CreditCard extends BillingDetails{
     private String expMonth;
     private String expYear;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private BillingDetails billingDetails ;
 

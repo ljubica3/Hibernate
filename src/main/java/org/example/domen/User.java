@@ -40,7 +40,7 @@ public class User {
     })
     private Address billingAddress;
 
-    @OneToMany(mappedBy = "ownerUser")
+    @OneToMany(mappedBy = "ownerUser", fetch = FetchType.LAZY)
     private List<BillingDetails> billingDetails;
 
     public Long getId() {

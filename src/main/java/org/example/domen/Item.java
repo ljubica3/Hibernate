@@ -12,7 +12,7 @@ public class Item {
     private Long Id;
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="category_item",
             joinColumns = @JoinColumn(name="item_id"),
@@ -20,16 +20,16 @@ public class Item {
     )
     private Set<Category> categories=new HashSet<>();
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<Image> images=new ArrayList<>();
 
-    @OneToMany(mappedBy="item", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Bid> bids = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User seller;
 
     public void addBid(Bid bid){

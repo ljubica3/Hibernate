@@ -12,7 +12,7 @@ public class Image {
     private String name;
     private String title;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
 
     public Image(){

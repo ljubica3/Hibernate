@@ -10,7 +10,7 @@ public class BillingDetails {
     protected Long Id;
     protected String owner;
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "owner_user")
         private User ownerUser;
 

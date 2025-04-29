@@ -13,10 +13,10 @@ public class Category {
     private Long Id;
     private String name;
 
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories",fetch = FetchType.LAZY)
     private Set<Item> items=new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category parent;
 
     public Long getId() {

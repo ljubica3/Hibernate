@@ -10,7 +10,7 @@ public class BankAccount extends BillingDetails{
     private String bankname;
     private String swift;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private BillingDetails billingDetails;
 
