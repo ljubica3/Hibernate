@@ -7,8 +7,8 @@ public class BillingDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private String owner;
+    protected Long Id;
+    protected String owner;
 
         @ManyToOne
         @JoinColumn(name = "owner_user")

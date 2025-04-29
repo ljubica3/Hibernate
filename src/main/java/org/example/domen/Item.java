@@ -1,10 +1,8 @@
 package org.example.domen;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 @Entity
 public class Item {
@@ -20,23 +18,24 @@ public class Item {
             joinColumns = @JoinColumn(name="item_id"),
             inverseJoinColumns = @JoinColumn(name="category_id")
     )
-
     private Set<Category> categories=new HashSet<>();
 
-    @ElementCollection
-    @CollectionTable(name="item_image", joinColumns = @JoinColumn(name="item_id"))
+    @OneToMany(mappedBy = "item")
     private List<Image> images=new ArrayList<>();
 
     @OneToMany(mappedBy="item", cascade = CascadeType.ALL)
-    private List<Bid> bids=new ArrayList<>();
+    private Set<Bid> bids = new HashSet<>();
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private User seller;
 
     public void addBid(Bid bid){
         bids.add(bid);
         bid.setItem(this);
     }
-
-    @ManyToOne
-    private User user;
 
     public Long getId() {
         return Id;
@@ -70,11 +69,11 @@ public class Item {
         this.images = images;
     }
 
-    public List<Bid> getBids() {
+    public Set<Bid> getBids() {
         return bids;
     }
 
-    public void setBids(List<Bid> bids) {
+    public void setBids(Set<Bid> bids) {
         this.bids = bids;
     }
 
@@ -86,8 +85,6 @@ public class Item {
         this.user = user;
     }
 
-    @ManyToOne
-    private User seller;
 
     public User getSeller() {
         return seller;
@@ -97,4 +94,15 @@ public class Item {
         this.seller = seller;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Objects.equals(Id, item.Id) && Objects.equals(name, item.name) && Objects.equals(categories, item.categories) && Objects.equals(images, item.images) && Objects.equals(bids, item.bids) && Objects.equals(user, item.user) && Objects.equals(seller, item.seller);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id, name, categories, images, bids, user, seller);
+    }
 }

@@ -2,6 +2,8 @@ package org.example.domen;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class Bid {
 
@@ -10,12 +12,12 @@ public class Bid {
     private Long id;
     private double amount;
 
-    @ManyToOne
-    private Item item;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bidder_id") //nema potrebe samo defi nise ime
     private User bidder;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Item item;
 
     public Long getId() {
         return id;
@@ -48,4 +50,18 @@ public class Bid {
     public void setBidder(User bidder) {
         this.bidder = bidder;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Bid bid = (Bid) o;
+        return Double.compare(amount, bid.amount) == 0 && Objects.equals(id, bid.id) && Objects.equals(bidder, bid.bidder) && Objects.equals(item, bid.item);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, amount, bidder, item);
+    }
 }
+
+
