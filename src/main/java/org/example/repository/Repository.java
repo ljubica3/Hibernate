@@ -1,19 +1,20 @@
-package zadatak02;
+package org.example.repository;
+
+import org.example.domen.User;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class repository {
-
+public class Repository {
 
     public static class UserRepository {
-        private Map<Integer, User> userMap = new HashMap<>();
+        private Map<Long, User> userMap = new HashMap<>();
 
         public void createUser(User user) {
             userMap.put(user.getId(), user);
         }
 
-        public User getUserById(int id) {
+        public User getUserById(Long id) {
             return userMap.get(id);
         }
 
@@ -21,11 +22,11 @@ public class repository {
             userMap.put(user.getId(), user);
         }
 
-        public void deleteUser(int id) {
+        public void deleteUser(Long id) {
             userMap.remove(id);
         }
 
-        public boolean existsById(int id) {
+        public boolean existsById(Long id) {
             return userMap.containsKey(id);
         }
     }
