@@ -94,15 +94,4 @@ public class Item {
         this.seller = seller;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Item item = (Item) o;
-        return Objects.equals(Id, item.Id) && Objects.equals(name, item.name) && Objects.equals(categories, item.categories) && Objects.equals(images, item.images) && Objects.equals(bids, item.bids) && Objects.equals(user, item.user) && Objects.equals(seller, item.seller);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(Id, name, categories, images, bids, user, seller);
-    }
 }
