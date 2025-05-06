@@ -13,7 +13,6 @@ import java.util.Set;
 
 public class Zadatak06Service {
 
-
     public static void checkFatchStrategy() {
         EntityManager em;
         try (EntityManagerFactory emf = Persistence.createEntityManagerFactory("ljubica-pu")) {
