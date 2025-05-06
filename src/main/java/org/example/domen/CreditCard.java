@@ -2,6 +2,8 @@ package org.example.domen;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class CreditCard extends BillingDetails{
 
@@ -9,7 +11,7 @@ public class CreditCard extends BillingDetails{
     private String expMonth;
     private String expYear;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private BillingDetails billingDetails ;
 
@@ -43,5 +45,18 @@ public class CreditCard extends BillingDetails{
 
     public void setBillingDetails(BillingDetails billingDetails) {
         this.billingDetails = billingDetails;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        CreditCard that = (CreditCard) o;
+        return Objects.equals(number, that.number) && Objects.equals(expMonth, that.expMonth) && Objects.equals(expYear, that.expYear);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), number, expMonth, expYear);
     }
 }

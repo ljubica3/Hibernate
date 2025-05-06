@@ -12,7 +12,7 @@ public class Item {
     private Long Id;
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="category_item",
             joinColumns = @JoinColumn(name="item_id"),
@@ -20,16 +20,16 @@ public class Item {
     )
     private Set<Category> categories=new HashSet<>();
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<Image> images=new ArrayList<>();
 
-    @OneToMany(mappedBy="item", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Bid> bids = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User seller;
 
     public void addBid(Bid bid){
@@ -98,11 +98,11 @@ public class Item {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(Id, item.Id) && Objects.equals(name, item.name) && Objects.equals(categories, item.categories) && Objects.equals(images, item.images) && Objects.equals(bids, item.bids) && Objects.equals(user, item.user) && Objects.equals(seller, item.seller);
+        return Objects.equals(Id, item.Id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, name, categories, images, bids, user, seller);
+        return Objects.hashCode(Id);
     }
 }

@@ -2,15 +2,17 @@ package org.example.domen;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 
 @Entity
-public class BankAccount extends BillingDetails{
+public class BankAccount extends BillingDetails {
 
     private String account;
     private String bankname;
     private String swift;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private BillingDetails billingDetails;
 
@@ -28,5 +30,18 @@ public class BankAccount extends BillingDetails{
 
     public void setBillingDetails(BillingDetails billingDetails) {
         this.billingDetails = billingDetails;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        BankAccount that = (BankAccount) o;
+        return Objects.equals(account, that.account) && Objects.equals(bankname, that.bankname) && Objects.equals(swift, that.swift);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), account, bankname, swift);
     }
 }

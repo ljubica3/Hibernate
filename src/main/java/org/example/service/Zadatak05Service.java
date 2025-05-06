@@ -156,23 +156,6 @@ public class Zadatak05Service {
 
     }
 
-
-
-//        em.getTransaction().begin();
-//        User u2=new User();
-//        u2.setFirstName("Ana");
-//        em.persist(u2);
-//        em.flush();
-//        em.getTransaction().commit();
-//
-//        em.getTransaction().begin();
-//        Query query=em.createQuery("select u from User u");
-//        query.getResultList();
-//        em.getTransaction().commit();
-//
-//        em.close();
-//        emf.close();
-
     public static void main(String[] args) {
         try(EntityManagerFactory emf = Persistence.createEntityManagerFactory("ljubica-pu")) {
             System.out.println("A");
