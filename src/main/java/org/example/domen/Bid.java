@@ -55,12 +55,12 @@ public class Bid {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Bid bid = (Bid) o;
-        return Objects.equals(id, bid.id);
+        return Double.compare(amount, bid.amount) == 0 && Objects.equals(id, bid.id) && Objects.equals(bidder, bid.bidder) && Objects.equals(item, bid.item);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id, amount, bidder, item);
     }
 }
 

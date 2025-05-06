@@ -5,7 +5,9 @@ import org.example.domen.Bid;
 import org.example.domen.Item;
 import org.hibernate.Hibernate;
 
+import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -97,7 +99,13 @@ public class Zadatak06Service {
 
         }
     }
-        //Napisati kod koji dovlači Item objekat i dodaje novi Bid objekat sa istim vrednostima kao postojeći.
+
+    void big(){
+        Double vrednost;
+        BigDecimal bigDecimal = new BigDecimal(5);
+        bigDecimal = bigDecimal.add(new BigDecimal(10));
+        //sout bigDEcimal => 15
+    }
         //Uraditi persist preko Item klase. Rezultat treba da ostane isti u bazi.
         //Ispisati count bids objekata pre i posle dodavanja novig Bid objekat u kolekciju
         //Uraditi persist preko Item klase. Rezultat treba da ostane isti u bazi. Rezultat treba da ostane isti u bazi.
@@ -110,43 +118,64 @@ public class Zadatak06Service {
                 em = emf.createEntityManager();
                 em.getTransaction().begin();
 
+                //
+                Set<Bid> bids;
+                Bid b1 = new Bid();
+                b1.setItem(b1.getItem());
+                b1.setAmount(55);
+                Bid b2 = new Bid();
+                b2.setItem(b2.getItem());
+                b2.setAmount(475);
+                Bid b3=new Bid();
+                b3.setItem(b3.getItem());
+                b3.setAmount(7501);
+
                 Item item = new Item();
                 item.setName("neki item");
+
                 em.persist(item);
                 em.getTransaction().commit();
 
-                long brojPre = em.createQuery("SELECT COUNT(b) FROM Bid b", Long.class).getSingleResult();
-                System.out.println("ukpan broj bidova pre: " + brojPre);
+//                Set<Bid> bidSet = Set.of(b1,b2,b3);
+                Set<Bid> bidSet = new HashSet<>(Set.of(b1, b2, b3));
 
+                item.setBids(bidSet);
+
+//                long brojPre = em.createQuery("SELECT COUNT(b) FROM Bid b", Long.class).getSingleResult();
+//                System.err.println("ukpan broj bidova pre: " + brojPre);
+                Item item1 = em.find(Item.class, item.getId());
+                System.err.println("1 ukpan broj bidova pre: " + item1.getBids().size());
+
+
+                //Napisati kod koji dovlači Item objekat i dodaje novi Bid objekat sa istim vrednostima kao postojeći.
                 em.getTransaction().begin();
                 Item item4 = em.find(Item.class, item.getId());
-                em.persist(item4);
-                em.getTransaction().commit();
 
-                Set<Bid> bids = item4.getBids();
-                System.out.println("broj bidova je: " + bids.size());
+                bids = item4.getBids();
+                System.err.println("2 broj bidova je: " + bids.size());
 
                 if (!bids.isEmpty()) {
-                    Bid prviBid = bids.iterator().next();
+                    Bid prviBid = bids.stream().findFirst().get();
 
                     Bid noviBid = new Bid();
                     noviBid.setAmount(prviBid.getAmount());
                     noviBid.setItem(prviBid.getItem());
                     noviBid.setBidder(prviBid.getBidder());
+                    noviBid.setId(prviBid.getId());
 
-                    em.getTransaction().begin();
                     bids.add(noviBid);
                     em.persist(item4);
                     em.getTransaction().commit();
 
-                    System.out.println("trenutni broj bidova: " + bids.size());
-                } else{
-                    System.out.println("nema bidova");
+                    System.err.println("3 trenutni broj bidova: " + bids.size()); //iako smo dodali novi element, on je isti, a ovo je set, pa se nije dodao
                 }
+
+                System.err.println("4 nema bidova");
+
 
 
                 long brojPosle = em.createQuery("SELECT COUNT(b) FROM Bid b", Long.class).getSingleResult();
-                System.out.println("broj bidova posel: " + brojPosle);
+                System.err.println("5 broj bidova posel: " + brojPosle);
             }
         }}
 
