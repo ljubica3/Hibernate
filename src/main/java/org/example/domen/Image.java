@@ -2,6 +2,8 @@ package org.example.domen;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class Image {
 
@@ -54,5 +56,17 @@ public class Image {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Image image = (Image) o;
+        return Objects.equals(id, image.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

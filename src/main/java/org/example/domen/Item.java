@@ -94,4 +94,15 @@ public class Item {
         this.seller = seller;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Objects.equals(Id, item.Id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(Id);
+    }
 }

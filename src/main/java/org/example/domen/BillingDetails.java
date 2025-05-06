@@ -2,6 +2,8 @@ package org.example.domen;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 public class BillingDetails {
 
@@ -36,6 +38,18 @@ public class BillingDetails {
 
     public void setOwnerUser(User ownerUser) {
         this.ownerUser = ownerUser;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        BillingDetails that = (BillingDetails) o;
+        return Objects.equals(Id, that.Id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(Id);
     }
 }
 

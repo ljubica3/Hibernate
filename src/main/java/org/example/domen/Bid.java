@@ -50,6 +50,18 @@ public class Bid {
     public void setBidder(User bidder) {
         this.bidder = bidder;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Bid bid = (Bid) o;
+        return Objects.equals(id, bid.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
 
 

@@ -111,11 +111,11 @@ public class User {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(homeAddress, user.homeAddress) && Objects.equals(shippingAddress, user.shippingAddress) && Objects.equals(billingAddress, user.billingAddress);
+        return Objects.equals(id, user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, firstName, lastName, homeAddress, shippingAddress, billingAddress);
+        return Objects.hashCode(id);
     }
 }

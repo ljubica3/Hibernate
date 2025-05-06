@@ -2,6 +2,7 @@ package org.example.domen;
 
 import jakarta.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -49,5 +50,17 @@ public class Category {
 
     public void setPartner(Category partner) {
         this.parent = parent;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(Id, category.Id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(Id);
     }
 }
