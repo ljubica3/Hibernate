@@ -43,6 +43,17 @@ public class User {
     @OneToMany(mappedBy = "ownerUser", fetch = FetchType.LAZY)
     private List<BillingDetails> billingDetails;
 
+    public User() {
+    }
+
+    public User(String username, String firstName, String lastName, Address homeAddress, Address shippingAddress) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.homeAddress = homeAddress;
+        this.shippingAddress = shippingAddress;
+    }
+
     public Long getId() {
         return id;
     }
@@ -117,5 +128,13 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }

@@ -2,6 +2,7 @@ package org.example.domen;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +19,13 @@ public class Bid {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
+
+    public Bid() {
+    }
+
+    public Bid(BigDecimal bigDecimal, Object o, Item fen) {
+    }
+
 
     public Long getId() {
         return id;

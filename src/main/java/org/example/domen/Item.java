@@ -2,6 +2,8 @@ package org.example.domen;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -31,6 +33,13 @@ public class Item {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User seller;
+
+    public Item() {
+    }
+
+    public Item(String televizor, BigDecimal bigDecimal, LocalDate of) {
+    }
+
 
     public void addBid(Bid bid){
         bids.add(bid);
