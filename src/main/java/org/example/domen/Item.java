@@ -1,6 +1,7 @@
 package org.example.domen;
 
 import jakarta.persistence.*;
+import org.hibernate.query.Query;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,6 +14,8 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String name;
+    private BigDecimal initialPrice;
+    private LocalDate auctionEnd;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -37,7 +40,10 @@ public class Item {
     public Item() {
     }
 
-    public Item(String televizor, BigDecimal bigDecimal, LocalDate of) {
+    public Item(String name, BigDecimal initialPrice, LocalDate auctionEnd) {
+        this.name = name;
+        this.initialPrice = initialPrice;
+        this.auctionEnd = auctionEnd;
     }
 
 
@@ -60,6 +66,14 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigDecimal getInitialPrice() {
+        return initialPrice;
+    }
+
+    public void setInitialPrice(BigDecimal initialPrice) {
+        this.initialPrice = initialPrice;
     }
 
     public Set<Category> getCategories() {
@@ -103,6 +117,14 @@ public class Item {
         this.seller = seller;
     }
 
+    public LocalDate getAuctionEnd() {
+        return auctionEnd;
+    }
+
+    public void setAuctionEnd(LocalDate auctionEnd) {
+        this.auctionEnd = auctionEnd;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -114,4 +136,16 @@ public class Item {
     public int hashCode() {
         return Objects.hashCode(Id);
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", initialPrice=" + initialPrice +
+                ", user=" + user +
+                ", seller=" + seller +
+                '}';
+    }
+
 }

@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.example.service.Zadatak06Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Main {
@@ -30,7 +31,7 @@ public class Main {
         user.setHomeAddress(address);
 
         Bid bid = new Bid();
-        bid.setAmount(100.50);
+        bid.setAmount(new BigDecimal("100.50"));
 
         em.getTransaction().begin();
 
