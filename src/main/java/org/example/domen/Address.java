@@ -11,6 +11,15 @@ public class Address {
     private String zipcode;
     private String city;
 
+    public Address() {
+    }
+
+    public Address(String street, String zipcode, String city) {
+        this.street = street;
+        this.zipcode = zipcode;
+        this.city = city;
+    }
+
     public String getStreet() {
         return street;
     }
@@ -45,5 +54,14 @@ public class Address {
     @Override
     public int hashCode() {
         return Objects.hash(street, zipcode, city);
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "street='" + street + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }

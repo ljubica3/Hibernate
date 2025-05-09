@@ -44,4 +44,5 @@ public class BankAccount extends BillingDetails {
     public int hashCode() {
         return Objects.hash(super.hashCode(), account, bankname, swift);
     }
+
 }

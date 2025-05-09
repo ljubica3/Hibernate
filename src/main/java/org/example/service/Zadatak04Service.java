@@ -5,6 +5,7 @@ import org.example.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class Zadatak04Service {
         User bidder = session.get(User.class, bidderId);
 
         Bid bid = new Bid();
-        bid.setAmount(100.0);
+        bid.setAmount(new BigDecimal(100.0));
         bid.setBidder(bidder);
 
         item.addBid(bid);

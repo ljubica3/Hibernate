@@ -13,7 +13,6 @@ import java.util.Set;
 
 public class Zadatak06Service {
 
-
     public static void checkFatchStrategy() {
         EntityManager em;
         try (EntityManagerFactory emf = Persistence.createEntityManagerFactory("ljubica-pu")) {
@@ -28,10 +27,10 @@ public class Zadatak06Service {
             Set<Bid> bids;
             Bid b1 = new Bid();
             b1.setItem(b1.getItem());
-            b1.setAmount(55);
+            b1.setAmount(new BigDecimal(55)); //nacin 1
             Bid b2 = new Bid();
             b2.setItem(b2.getItem());
-            b2.setAmount(475);
+            b2.setAmount(BigDecimal.valueOf(475)); //nacin 2
             bids = Set.of(b1, b2);
             Item item = new Item();
 
@@ -68,7 +67,7 @@ public class Zadatak06Service {
 
             Bid bid1 = new Bid();
             bid1.setItem(itemProxy);
-            bid1.setAmount(445);
+            bid1.setAmount(new BigDecimal(445));
 
             em.persist(itemProxy);
 
@@ -122,13 +121,13 @@ public class Zadatak06Service {
                 Set<Bid> bids;
                 Bid b1 = new Bid();
                 b1.setItem(b1.getItem());
-                b1.setAmount(55);
+                b1.setAmount(new BigDecimal(55));
                 Bid b2 = new Bid();
                 b2.setItem(b2.getItem());
-                b2.setAmount(475);
+                b2.setAmount(new BigDecimal(475));
                 Bid b3=new Bid();
                 b3.setItem(b3.getItem());
-                b3.setAmount(7501);
+                b3.setAmount(new BigDecimal(7501));
 
                 Item item = new Item();
                 item.setName("neki item");
