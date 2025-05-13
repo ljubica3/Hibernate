@@ -5,11 +5,12 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class BillingDetails {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class BillingDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long Id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
     protected String owner;
 
         @ManyToOne(fetch = FetchType.LAZY)
@@ -17,11 +18,11 @@ public class BillingDetails {
         private User ownerUser;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getOwner() {
@@ -40,16 +41,29 @@ public class BillingDetails {
         this.ownerUser = ownerUser;
     }
 
-    @Override
+
+        @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         BillingDetails that = (BillingDetails) o;
-        return Objects.equals(Id, that.Id);
+//
+//        if (id != null && that.id != null) return Objects.equals(id, that.id);
+//        return owner.equalsIgnoreCase(that.owner);
+
+//        TERNARNI OPERATOR
+        return (id != null && that.id != null) ? Objects.equals(id, that.id) : owner.equalsIgnoreCase(that.owner);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(Id);
+        return (id != null) ? Objects.hashCode(id) : Objects.hashCode(owner);
+    }
+
+    public static void main(String[] args) {
+        Boolean nesto = false;
+        String a = nesto ? "a" : "b";
+        System.out.println(a);
     }
 }
 

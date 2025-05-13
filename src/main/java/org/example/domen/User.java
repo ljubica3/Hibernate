@@ -121,13 +121,19 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        if (!super.equals(o)) return false;
+        User that = (User) o;
+  //      return Objects.equals(id, user.id);
+
+
+        return (id != null && that.id != null) ? Objects.equals(id, that.id) : username.equalsIgnoreCase(that.username);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+
+        return (id != null) ? Objects.hashCode(id) : Objects.hashCode(username);
     }
 
     @Override
@@ -143,4 +149,12 @@ public class User {
                 ", billingDetails=" + billingDetails +
                 '}';
     }
+
+    public void addBillingDetails(BillingDetails bd) {
+        billingDetails.add(bd);
+        bd.setOwnerUser(this);
+    }
+
+
+
 }
