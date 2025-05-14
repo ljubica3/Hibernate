@@ -2,6 +2,7 @@ package org.example.domen;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,8 +41,9 @@ public class User {
     })
     private Address billingAddress;
 
-    @OneToMany(mappedBy = "ownerUser", fetch = FetchType.LAZY)
-    private List<BillingDetails> billingDetails;
+    @OneToMany(mappedBy = "ownerUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BillingDetails> billingDetails = new ArrayList<>();
+
 
     public User() {
     }
@@ -154,7 +156,5 @@ public class User {
         billingDetails.add(bd);
         bd.setOwnerUser(this);
     }
-
-
 
 }

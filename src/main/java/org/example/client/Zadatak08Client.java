@@ -13,12 +13,20 @@ public class Zadatak08Client {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ljubica-pu");
         EntityManager em = emf.createEntityManager();
 
-        Zadatak08Service service = new Zadatak08Service(em);
+        Zadatak08Service.kreirajKorisnika(em);
 
-        service.kreirajKorisnika(em);
+        //sve bill det
+//        Zadatak08Service.vratiSveBillding();
 
-       // Zadatak08Service.vratiSamoRedoveCreditCard();
+//       Zadatak08Service.vratiSamoRedoveCreditCard();
 
-        Zadatak08Service.vratiSamoBankAccRedobe();
+//        Zadatak08Service.vratiSamoBankAccRedobe();
+
+        Zadatak08Service.vratiSveKorisnikeIspisiBillingDetails();
+
+        Zadatak08Service.dodajBankAccKorisniku1();
+        Zadatak08Service.obrisatiCreditCardKorisniku3();
+
+        Zadatak08Service.vratiSveKorisnikeIspisiBillingDetails();
     }
 }

@@ -15,15 +15,13 @@ import java.util.List;
 
 public class Zadatak08Service {
 
-    private static EntityManagerFactory emf;
-
-    public Zadatak08Service(EntityManager em) {
-    }
+    private static EntityManagerFactory emf = HibernateUtil.createEntityManagerFactory();
+    private static EntityManager em = emf.createEntityManager();
 
 
-    public void kreirajKorisnika(EntityManager em) {
+    public static void kreirajKorisnika(EntityManager em) {
 
-
+        em.getTransaction().begin();
         User korisnik1 = new User();
         korisnik1.setFirstName("Ljubica");
         korisnik1.setLastName("Vlahovic");
@@ -69,57 +67,134 @@ public class Zadatak08Service {
 
         korisnik3.addBillingDetails(cc2);
         korisnik3.addBillingDetails(ba2);
-        
+
+        em.persist(korisnik1);
+        em.persist(korisnik2);
+        em.persist(korisnik3);
+
+        em.getTransaction().commit();
+
     }
 
     //Napisati upit koji vraća sve BillingDetail
 
     public static void vratiSveBillding() {
 
-        emf = HibernateUtil.createEntityManagerFactory();
-            EntityManager em = emf.createEntityManager();
+        List<BillingDetails> billingDetails = new ArrayList<>();
+        Query query = em.createQuery("select b from BillingDetails b", BillingDetails.class);
+        billingDetails = query.getResultList();
+        System.out.println("svi BillingDetails: " + billingDetails.size() + " (ocekujemo 4)");
 
-            List<BillingDetails> billingDetails = new ArrayList<>();
-            Query query = em.createQuery("select b from BillingDetails b", BillingDetails.class);
-            billingDetails = query.getResultList();
-            System.out.println("svi BillingDetails: " + billingDetails);
-
-}
+    }
 
     //Napisati upit koji vraća samo credit card redove
 
-    public static void vratiSamoRedoveCreditCard(){
+    public static void vratiSamoRedoveCreditCard() {
 
-            emf = HibernateUtil.createEntityManagerFactory();
-            EntityManager em=emf.createEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<CreditCard> cq = cb.createQuery(CreditCard.class);
+        Root<CreditCard> root = cq.from(CreditCard.class);
+        cq.select(root);
+        TypedQuery<CreditCard> query = em.createQuery(cq);
+        System.out.println("svi redovi: " + query.getResultList().size() + " (TREBA 2)");
 
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<CreditCard> cq = cb.createQuery(CreditCard.class);
-            Root<CreditCard> root = cq.from(CreditCard.class);
-            cq.select(root);
-            TypedQuery<CreditCard> query = em.createQuery(cq);
-             System.out.println("svi redovi: "+ query.getResultList());
+        CriteriaQuery<User> cqUser = cb.createQuery(User.class);
+        Root<User> rootUser = cqUser.from(User.class);
+        cqUser.select(rootUser);
+        TypedQuery<User> queryUser = em.createQuery(cqUser);
+        System.out.println("svi useri: " + queryUser.getResultList().size() + " (TREBA 3)");
 
     }
 
     //Napisati upit koji vraća samo bank account redove
 
-    public static void vratiSamoBankAccRedobe(){
+    public static void vratiSamoBankAccRedobe() {
 
-        emf=HibernateUtil.createEntityManagerFactory();
-        EntityManager em=emf.createEntityManager();
-
-        CriteriaBuilder cb=em.getCriteriaBuilder();
-        CriteriaQuery<BankAccount> cq=cb.createQuery(BankAccount.class);
-        Root<BankAccount> root=cq.from(BankAccount.class);
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<BankAccount> cq = cb.createQuery(BankAccount.class);
+        Root<BankAccount> root = cq.from(BankAccount.class);
         cq.select(root);
-        TypedQuery<BankAccount> query=em.createQuery(cq);
-        System.out.println("svi BC redovi: "+query.getResultList());
+        TypedQuery<BankAccount> query = em.createQuery(cq);
+        System.out.println("svi BC redovi: " + query.getResultList().size() + " (treba 2)");
 
     }
 
     //Korisniku broj 1 dodati bank account
 
+    public static void dodajBankAccKorisniku1() {
+
+        User korisnik1 = em.find(User.class, 1L);
+
+        BankAccount ba3 = new BankAccount();
+        ba3.setOwner("korisnik 1");
+        ba3.setAccount("111-222-333-444");
+        ba3.setBankname("Intesa");
+        ba3.setSwift("intesa");
+
+        ba3.setOwnerUser(korisnik1);
+        korisnik1.addBillingDetails(ba3);
+        em.persist(korisnik1);
+
+    }
+
+    public static void obrisatiCreditCardKorisniku3() {
+
+        User korisnik3 = em.find(User.class, 3L);
+
+        if (korisnik3 != null) {
+            List<BillingDetails> lista = korisnik3.getBillingDetails();
+
+            BillingDetails brisanje = null;
+            for (BillingDetails bd : lista) {
+                if (bd instanceof CreditCard) {
+                    brisanje = bd;
+                    break;
+                }
+            }
 
 
+            /// CASCADE DELETE
+            // em.remove(korisnik3); -> ovo bi obrisalo i karticu
+
+            ///  orphan removal
+            korisnik3.getBillingDetails().remove(brisanje);
+            em.persist(korisnik3); //ovo brise karticu
+        }
+    }
+
+    //Vratiti svakog korisnika i ispisati njegove billing detalje na konzoli
+
+    public static void vratiSveKorisnikeIspisiBillingDetails() {
+
+        List<User> korisnici = em.createQuery("select u from User u", User.class)
+                .getResultList();
+
+        for (User korisnik : korisnici) {
+            System.out.println("korisnik: " + korisnik.getUsername());
+
+            List<BillingDetails> detalji = korisnik.getBillingDetails();
+
+            if (detalji.isEmpty()) {
+                System.out.println("nema detalja");
+            } else {
+                for (BillingDetails bd : detalji) {
+
+                    if (bd instanceof CreditCard) {
+                        CreditCard cc = (CreditCard) bd;
+                        System.out.println("creditCard: " + cc.getNumber() + "mesec: " + cc.getExpMonth() + "godina: " + cc.getExpYear());
+                    } else if (bd instanceof BankAccount) {
+                        BankAccount ba = (BankAccount) bd;
+                        System.out.println("bankAccount: " + ba.getAccount() + "bankName: " + ba.getBankname() + "swift: " + ba.getSwift());
+                    }
+                }
+            }
+        }
+    }
 }
+
+
+
+
+
+
+

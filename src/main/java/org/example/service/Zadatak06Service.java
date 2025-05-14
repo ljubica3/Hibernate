@@ -107,8 +107,6 @@ public class Zadatak06Service {
     }
         //Uraditi persist preko Item klase. Rezultat treba da ostane isti u bazi.
         //Ispisati count bids objekata pre i posle dodavanja novig Bid objekat u kolekciju
-        //Uraditi persist preko Item klase. Rezultat treba da ostane isti u bazi. Rezultat treba da ostane isti u bazi.
-        // Ispisati count bids objekata pre i posle dodavanja novig Bid objekat u kolekciju
 
         public static void dodajNoviBid() {
 

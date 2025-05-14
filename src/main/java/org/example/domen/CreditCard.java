@@ -59,4 +59,13 @@ public class CreditCard extends BillingDetails{
     public int hashCode() {
         return (id != null) ? Objects.hashCode(id) : Objects.hashCode(number);
     }
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "number='" + number + '\'' +
+                ", expMonth='" + expMonth + '\'' +
+                ", expYear='" + expYear + '\'' +
+                '}';
+    }
 }
