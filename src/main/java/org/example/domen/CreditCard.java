@@ -52,11 +52,20 @@ public class CreditCard extends BillingDetails{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         CreditCard that = (CreditCard) o;
-        return Objects.equals(number, that.number) && Objects.equals(expMonth, that.expMonth) && Objects.equals(expYear, that.expYear);
+        return (id != null && that.id != null) ? Objects.equals(id, that.id) : number.equalsIgnoreCase(that.number);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), number, expMonth, expYear);
+        return (id != null) ? Objects.hashCode(id) : Objects.hashCode(number);
+    }
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "number='" + number + '\'' +
+                ", expMonth='" + expMonth + '\'' +
+                ", expYear='" + expYear + '\'' +
+                '}';
     }
 }
