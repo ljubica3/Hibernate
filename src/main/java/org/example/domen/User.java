@@ -1,6 +1,7 @@
 package org.example.domen;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Korisnik")
+@BatchSize(size=3)
 public class User {
 
     @Id
