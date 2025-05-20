@@ -123,7 +123,7 @@ public class Zadatak09Service {
         em.getTransaction().begin();
 
         User seller1=new User();
-        seller1.setFirstName("Ljubica");
+        seller1.setFirstName("MARKO");
         seller1.setLastName("V");
         em.persist(seller1);
 
@@ -133,7 +133,7 @@ public class Zadatak09Service {
         em.persist(seller2);
 
         User seller3=new User();
-        seller3.setFirstName("Marko");
+        seller3.setFirstName("lJUBICA");
         em.persist(seller3);
 
         Item i1=new Item();

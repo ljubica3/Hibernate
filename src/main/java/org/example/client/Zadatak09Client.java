@@ -7,8 +7,8 @@ public class Zadatak09Client {
 
 //        Zadatak09Service.vratiSveBidsSaItemima();
 //        Zadatak09Service.vratiSveBidsSaItemimaBezProblema();
-//        Zadatak09Service.vratiSveItemeISellere();
-        Zadatak09Service.mergeDetachedItem();
+        Zadatak09Service.vratiSveItemeISellere();
+//        Zadatak09Service.mergeDetachedItem();
 
     }
 }
