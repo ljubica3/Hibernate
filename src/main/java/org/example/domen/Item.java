@@ -12,29 +12,33 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long Id;
     private String name;
     private BigDecimal initialPrice;
     private LocalDate auctionEnd;
 
+    @Version
+    private Integer version;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name="category_item",
-            joinColumns = @JoinColumn(name="item_id"),
-            inverseJoinColumns = @JoinColumn(name="category_id")
+            name = "category_item",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<Category> categories=new HashSet<>();
+    private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
-    private List<Image> images=new ArrayList<>();
+    private List<Image> images = new ArrayList<>();
 
-    @OneToMany(mappedBy="item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Bid> bids = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private User seller;
 
     public Item() {
@@ -47,7 +51,7 @@ public class Item {
     }
 
 
-    public void addBid(Bid bid){
+    public void addBid(Bid bid) {
         bids.add(bid);
         bid.setItem(this);
     }
@@ -115,6 +119,14 @@ public class Item {
 
     public void setSeller(User seller) {
         this.seller = seller;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public LocalDate getAuctionEnd() {
