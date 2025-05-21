@@ -1,8 +1,6 @@
 package org.example.domen;
 
 import jakarta.persistence.*;
-import org.hibernate.query.Query;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
@@ -13,7 +11,7 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long Id;
+    private Long id;
     private String name;
     private BigDecimal initialPrice;
     private LocalDate auctionEnd;
@@ -57,11 +55,11 @@ public class Item {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -141,18 +139,18 @@ public class Item {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(Id, item.Id);
+        return Objects.equals(id, item.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(Id);
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Item{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", name='" + name + '\'' +
                 ", initialPrice=" + initialPrice +
                 ", user=" + user +
