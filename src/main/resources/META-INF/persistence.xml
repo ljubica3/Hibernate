@@ -7,8 +7,6 @@
     <persistence-unit name="ljubica-pu">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <mapping-file>META-INF/orm.xml</mapping-file>
-
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:testdb" />
             <property name="jakarta.persistence.jdbc.user" value="sa" />
