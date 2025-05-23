@@ -22,6 +22,8 @@
         <mapping class="org.example.domen.Address"/>
         <mapping class="org.example.domen.User"/>
         <mapping class="org.example.domen.CreditCard"/>
+        <mapping class="org.example.domen.BillingAddress"/>
+
 
     </session-factory>
 

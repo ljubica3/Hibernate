@@ -35,17 +35,16 @@ public class User {
     })
     private Address shippingAddress;
 
-    @Embedded
     @AttributeOverrides({
             @AttributeOverride(name="street", column = @Column(name="billing_street")),
             @AttributeOverride(name = "city", column = @Column(name = "billing_city")),
             @AttributeOverride(name = "zipcode", column = @Column(name = "billing_zip"))
     })
-    private Address billingAddress;
+    @OneToOne
+    private BillingAddress billingAddress;
 
     @OneToMany(mappedBy = "ownerUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BillingDetails> billingDetails = new ArrayList<>();
-
 
     public User() {
     }
@@ -56,6 +55,14 @@ public class User {
         this.lastName = lastName;
         this.homeAddress = homeAddress;
         this.shippingAddress = shippingAddress;
+    }
+
+    public BillingAddress getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(BillingAddress billingAddress) {
+        this.billingAddress = billingAddress;
     }
 
     public Long getId() {
@@ -104,14 +111,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Address getBillingAddress() {
-        return billingAddress;
-    }
-
-    public void setBillingAddress(Address billingAddress) {
-        this.billingAddress = billingAddress;
     }
 
     public List<BillingDetails> getBillingDetails() {
