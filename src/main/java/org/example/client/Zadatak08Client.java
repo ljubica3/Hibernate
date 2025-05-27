@@ -3,7 +3,7 @@ package org.example.client;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.example.service.Zadatak06Service;
+//import org.example.service.Zadatak06Service;
 import org.example.service.Zadatak08Service;
 
 public class Zadatak08Client {

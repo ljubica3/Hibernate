@@ -35,7 +35,7 @@ public class Zadatak06Service {
             Item item = new Item();
 
             item.setName("ime");
-            item.setBids(bids);
+//            item.setBids(bids);
 
             em.getTransaction().begin();
             em.persist(item);

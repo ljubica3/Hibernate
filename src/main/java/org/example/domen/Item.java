@@ -19,18 +19,18 @@ public class Item {
     @Version
     private Integer version;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "category_item",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<Category> categories = new HashSet<>();
+    private static List<Category> categories = new ArrayList<>();
 
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<Image> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Bid> bids = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -78,11 +78,11 @@ public class Item {
         this.initialPrice = initialPrice;
     }
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 
@@ -133,6 +133,16 @@ public class Item {
 
     public void setAuctionEnd(LocalDate auctionEnd) {
         this.auctionEnd = auctionEnd;
+    }
+
+    public void addCategory(Category category) {
+        categories.add(category);
+        category.getItems().add(this);
+    }
+
+    public void removeCategory(Category category) {
+        categories.remove(category);
+        category.getItems().remove(this);
     }
 
     @Override

@@ -1,9 +1,8 @@
 package org.example.domen;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+
+import java.util.*;
 
 @Entity
 
@@ -14,11 +13,18 @@ public class Category {
     private Long Id;
     private String name;
 
-    @ManyToMany(mappedBy = "categories",fetch = FetchType.LAZY)
-    private Set<Item> items=new HashSet<>();
+    @ManyToMany(mappedBy = "categories")
+    private List<Item> items=new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Category parent;
+    private Category category;
+
+    public Category() {
+
+    }
+    public Category(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return Id;
@@ -36,20 +42,30 @@ public class Category {
         this.name = name;
     }
 
-    public Set<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(Set<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 
-    public Category getPartner() {
-        return parent;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setPartner(Category partner) {
-        this.parent = parent;
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void addItem(Item item){
+        items.add(item);
+        item.getCategories().add(this);
+    }
+
+    public void removeItem(Item item){
+        items.remove(item);
+        item.getCategories().remove(this);
     }
 
     @Override

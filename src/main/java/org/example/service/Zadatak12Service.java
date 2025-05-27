@@ -2,10 +2,7 @@ package org.example.service;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.example.domen.Bid;
-import org.example.domen.BillingAddress;
-import org.example.domen.Item;
-import org.example.domen.User;
+import org.example.domen.*;
 import org.example.util.HibernateUtil;
 
 import java.math.BigDecimal;
@@ -30,7 +27,7 @@ public class Zadatak12Service {
 
         em.persist(user);
         em.getTransaction().commit();
-
+        em.close();
     }
 
     //Napraviti OneToMany unidirekcionu vezu Item - Bid.
@@ -39,6 +36,8 @@ public class Zadatak12Service {
     //Može da se napravi sa ili bez JoinColumn.
 
     public static void kreirajItemSaBid(){
+
+        em.getTransaction().begin();
 
         Bid bid1 = new Bid();
         Bid bid2 = new Bid();
@@ -56,11 +55,44 @@ public class Zadatak12Service {
         item.addBid(bid2);
 
         em.persist(item);
+        em.getTransaction().commit();
+    }
 
+    //Napraviti CategoryItem ManyToMany vezu koristeći List interfejs i prikazati preko upita probleme navedene u lekciji.
 
+    public static void poveziIteme(){
 
+        em.getTransaction().begin();
 
+        Category elektronika=new Category("elektronika");
+        Category nesto=new Category("nesto");
 
+        Item televizor=em.createQuery("select i from Item i where i.name=:name",Item.class).setParameter("name","nesto").getSingleResult();
+        Item gumica=em.createQuery("select i from Item i where name=:name",Item.class).setParameter("name","gumica").getSingleResult();
+
+        televizor.addCategory(elektronika);
+        gumica.addCategory(nesto);
+
+        em.persist(elektronika);
+        em.persist(nesto);
+
+        em.getTransaction().commit();
+        em.close();
+
+    }
+
+    public static void prikaziProblemManyToMany(){
+
+        em.getTransaction().begin();
+
+        Item tv=em.createQuery("select i from Item i where i.name=:name", Item.class).setParameter("name","tv").getSingleResult();
+
+        Category novaKategorija=new Category("nova kategorija");
+        tv.addCategory(novaKategorija);
+
+        em.persist(novaKategorija);
+        em.getTransaction().commit();
+        em.close();
     }
 
 }

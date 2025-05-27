@@ -40,7 +40,7 @@ public class User {
             @AttributeOverride(name = "city", column = @Column(name = "billing_city")),
             @AttributeOverride(name = "zipcode", column = @Column(name = "billing_zip"))
     })
-    @OneToOne
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY,optional = false)
     private BillingAddress billingAddress;
 
     @OneToMany(mappedBy = "ownerUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

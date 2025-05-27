@@ -12,7 +12,8 @@ public class BillingAddress {
     private String postalCode;
     private String city;
 
-    @OneToOne(mappedBy = "billingAddress",cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
     private User user;
 
     public BillingAddress() {
